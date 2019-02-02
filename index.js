@@ -31,7 +31,24 @@ passport.deserializeUser(function(user, cb) {
 
 // FACEBOOK auth
 const FacebookStrategy = require('passport-facebook').Strategy;
-const FACEBOOK_APP_ID = 'your app id'
+const FACEBOOK_APP_ID = 'your app id';
+const FACEBOOK_APP_SECRET = 'your app secret';
+
+passport.use(new FacebookStrategy({
+  clientID: FACEBOOK_APP_ID,
+  clientSecret: FACEBOOK_APP_SECRET,
+  callbackURL: '/auth/facebook/callback'
+}, function (accessToken, refreshToken, profile, cb) {
+  return cb(null, profile);
+}));
+
+app.get('/auth/facebook', passport.authenticate('facebook'));
+
+app.get('/auth/facebook/callback', passport.authenticate('facebook', {
+  failureRedirect: '/error'
+}), function(req, res) {
+  res.redirect('/success');
+});
 
 const port = process.env.PORT || 3000;
 
