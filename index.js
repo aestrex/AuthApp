@@ -2,6 +2,8 @@ const express = require('express');
 const app = express();
 const passport = require('passport');
 
+require('dotenv').config();
+
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -26,6 +28,10 @@ passport.serializeUser(function(user, cb) {
 passport.deserializeUser(function(user, cb) {
   cb(null, obj);
 });
+
+// FACEBOOK auth
+const FacebookStrategy = require('passport-facebook').Strategy;
+const FACEBOOK_APP_ID = 'your app id'
 
 const port = process.env.PORT || 3000;
 
