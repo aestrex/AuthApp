@@ -31,8 +31,8 @@ passport.deserializeUser(function(user, cb) {
 
 // FACEBOOK auth
 const FacebookStrategy = require('passport-facebook').Strategy;
-const FACEBOOK_APP_ID = 'your app id';
-const FACEBOOK_APP_SECRET = 'your app secret';
+const FACEBOOK_APP_ID = process.env.FACEBOOK_APP_ID;
+const FACEBOOK_APP_SECRET = process.env.FACEBOOK_APP_SECRET;
 
 passport.use(new FacebookStrategy({
   clientID: FACEBOOK_APP_ID,
